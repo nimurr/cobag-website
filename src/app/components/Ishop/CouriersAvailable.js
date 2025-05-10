@@ -102,7 +102,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
     };
 
     return (
-        <div className="bg-[#f7f7fc]">
+        <section id="shop" className="bg-[#f7f7fc]">
             <div className="lg:py-32 py-20 bg-[#]">
                 <div className="lg:w-[80%] w-[90%] mx-auto">
 
@@ -246,7 +246,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
