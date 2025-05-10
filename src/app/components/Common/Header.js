@@ -56,13 +56,15 @@ const Header = () => {
                     </span>
                     <ul className="absolute hidden group-hover:block top-12 left-0 bg-white shadow-md rounded-md min-w-96">
 
+
+
                         <li >
                             <Link
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
                                 href={'/itravel'}
                             >
                                 {/* I want to travel abroad */}
-                                <PiAirplaneTiltThin className='text-xl' /> {t('NavbarItem1')}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane text-gray-600"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>  {t('NavbarItem1')}
                             </Link>
                         </li>
 
@@ -79,20 +81,30 @@ const Header = () => {
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
                                 href={'/ishop'}
                             >
-                                <MdContentPasteSearch className='text-xl' />{t('NavbarItem3')}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-gray-600"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>{t('NavbarItem3')}
                             </Link>
                         </li>
 
 
-                        {/* 
+
                         <li>
                             <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
-                                href={'/isend'}
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
+                                href={'/ishop#shop'}
                             >
-                                {t('NavbarItem2')}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-search text-gray-600"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><circle cx="5" cy="14" r="3"></circle><path d="m9 18-1.5-1.5"></path></svg> I want to see the requests
                             </Link>
-                        </li> */}
+                        </li>
+
+
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
+                                href={'/itravel'}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-up text-gray-600"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M12 12v6"></path><path d="m15 15-3-3-3 3"></path></svg>  I want to submit an application
+                            </Link>
+                        </li>
 
 
                     </ul>
@@ -125,7 +137,7 @@ const Header = () => {
 
                         <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1742636667/ForBdcolling/neyqgnpepzdve7cm12h3.png'} alt="" />
 
-                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-16 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
+                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-16 sm:right-0 -right-52 min-w-72 hidden group-hover:block">
                             <Link
                                 href={'/dashboard/profile'}
                                 className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
@@ -221,9 +233,11 @@ const Header = () => {
             >
                 <ul className="space-y-4">
                     {[
-                        { path: '/itravel', label: t('NavbarItem1'), icon: <PiAirplaneTiltThin className='text-xl' /> },
+                        { path: '/itravel', label: t('NavbarItem1'), icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane text-gray-600"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg> },
                         // { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
-                        { path: '/ishop', label: t('NavbarItem3'), icon: <MdContentPasteSearch className='text-xl' /> },
+                        { path: '/ishop', label: t('NavbarItem3'), icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-gray-600"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> },
+                        { path: '/ishop#shop', label: ' I want to see the requests', icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-search text-gray-600"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><circle cx="5" cy="14" r="3"></circle><path d="m9 18-1.5-1.5"></path></svg> },
+                        { path: '/itravel', label: ' I want to submit an application', icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-up text-gray-600"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M12 12v6"></path><path d="m15 15-3-3-3 3"></path></svg> },
                         // { path: '/isend', label: 'I want to send a parcel' },
                     ].map((item, index) => (
                         <li key={index}>

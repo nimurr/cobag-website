@@ -84,8 +84,13 @@ const Page = () => {
 
     const [ishopAllData] = useSearchIShopMutation();
 
+    const [count, setCount] = useState(false);
+
 
     const handleSubmit = async (e) => {
+
+        setCount(true);
+
         e.preventDefault();
         const form = e.target;
         const departureCity = form?.departureCity?.value || '';
@@ -100,8 +105,8 @@ const Page = () => {
 
 
 
-        if (selectedOption === '1' || selectedOption == '2') {
 
+        if (selectedOption === '1' || selectedOption == '2') {
 
             const formData = {
                 transportMode: 'all',
@@ -109,11 +114,13 @@ const Page = () => {
                 arrivalCity,
                 departureDate,
                 arrivalDate,
-                // price: maxpurchAmountAdvance,
-                totalSpace: packageWeight,
+                price: maxpurchAmountAdvance || 0,
+                totalSpace: packageWeight
             };
 
-            // console.log(formData);
+            console.log('formData :', formData);
+
+
 
 
             const fromDataPost = new FormData();
@@ -128,7 +135,7 @@ const Page = () => {
                 fromDataPost.append('uploadImage', form.image.files[0]);
             }
 
-            if (departureDate === '' || arrivalDate === '' || packageWeight === 0) {
+            if (departureDate === '' || arrivalDate === '' || packageWeight === 0 || !maxpurchAmountAdvance) {
                 // Determine which specific field is missing and show the corresponding error message
 
                 if (arrivalCity === '') {
@@ -137,10 +144,11 @@ const Page = () => {
                 if (departureDate === '') {
                     return toast.error('Please select a departure date.');
                 }
-
-
                 if (packageWeight === 0) {
                     return toast.error('Please enter the package weight.');
+                }
+                if (!maxpurchAmountAdvance) {
+                    return toast.error('Please enter the purchase price.');
                 }
             }
 
@@ -151,6 +159,7 @@ const Page = () => {
                     console.log(response);
                     if (response?.success) {
                         setAllSearchResutl(response?.data)
+                        router.push(`/ishop#routes`)
                         toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                     }
                 }
@@ -164,6 +173,7 @@ const Page = () => {
                     //======== this is for search ===========
                     if (response2?.success) {
                         setAllSearchResutl(response2?.data)
+                        router.push(`/ishop#routes`)
                         toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
                     }
                     else if (!response2?.success) {
@@ -204,11 +214,24 @@ const Page = () => {
 
             console.log(formData);
 
+            const fromDataPost = new FormData();
+            if (showFlexibleDate) {
+                fromDataPost.append('departureCity', departureCity);
+                fromDataPost.append('arrivalCity', arrivalCity);
+                fromDataPost.append('departureDate', departureDate);
+                fromDataPost.append('arrivalDate', arrivalDate);
+                fromDataPost.append('PurchasePrice', maxpurchAmountAdvance);
+                fromDataPost.append('productName', name);
+                fromDataPost.append('quantity', quantity);
+                fromDataPost.append('uploadImage', form.image.files[0]);
+            }
+
             try {
                 if (!showFlexibleDate) {
-                    const response = await ishopAllData(formData).unwrap();
+                    const response = await searchIshop(formData).unwrap();
                     console.log(response);
                     if (response?.success) {
+                        router.push(`/ishop#routes`)
                         setAllSearchResutl(response?.data)
                         toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                     }
@@ -216,12 +239,13 @@ const Page = () => {
                 else {
 
                     const response = await postIshop(fromDataPost).unwrap();
-                    const response2 = await ishopAllData(formData).unwrap();
+                    const response2 = await searchIshop(formData).unwrap();
 
                     console.log(response);
 
                     //======== this is for search ===========
                     if (response2?.success) {
+                        router.push(`/ishop#routes`)
                         setAllSearchResutl(response2?.data)
                         toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
                     }
@@ -595,7 +619,7 @@ const Page = () => {
 
                                         <div>
                                             <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}
-                                                {/* <sup className='text-red-500'> *</sup> */}
+                                                <sup className='text-red-500'> *</sup>
                                             </label>
                                             <div className="relative flex items-center">
                                                 <input
@@ -727,7 +751,7 @@ const Page = () => {
 
 
             {
-                allSearchResutl.length < 1 &&
+                allSearchResutl.length < 1 && count &&
                 <div className='my-10'>
                     <div className='lg:w-[80%] mx-auto mb-5 flex justify-center items-center gap-3'>
                         <p className='text-base font-semibold text-gray-600'>Be alerted</p>
@@ -831,18 +855,15 @@ const Page = () => {
                                                 <span className='shadow-[0_0_15px_0_rgba(0,0,0,0.1)] font-medium w-[200px] group-hover:opacity-100 opacity-0 absolute top-10 right-0 transform  bg-white text-gray-600 text-sm py-1 px-2 rounded-lg hidden group-hover:block'>
                                                     <h2 className='font-semibold mb-2'>Price details :</h2>
 
-                                                    <span className='font-semibold'> 15 € </span> Mission fee<br />
-                                                    <span className='font-semibold'>{(item?.totalSpace * item?.pricePerKilo).toFixed(2)} €</span> Price {item?.totalSpace} KG * {item?.pricePerKilo} €/KG
-
-                                                    <span className='font-semibold'> 
-                                                        {(item?.price - (Number(item?.totalSpace * item?.pricePerKilo) + 15)).toFixed(2)}
-
+                                                    <span className='font-semibold'> {(15).toFixed(2)} € </span> Mission fee<br />
+                                                    <span className='font-semibold'>{(item?.totalSpace * item?.pricePerKilo).toFixed(2)} €</span>  Price {item?.totalSpace} KG * {item?.pricePerKilo} €/KG
+                                                    <br />
+                                                    <span >
+                                                        <span className='font-semibold'> {(item?.price - (Number(item?.totalSpace * item?.pricePerKilo) + 15)).toFixed(2)} € </span>
                                                         Commision 20%
                                                     </span>
 
                                                     <hr className='block my-1' />
-
-
 
                                                     <span>Total Price :
                                                         <span className='font-semibold'> {(item?.price).toFixed(2)}  €</span>
